@@ -1,29 +1,38 @@
 import streamlit as st
-import cmath
+import numpy as np
+import numpy.linalg as la
 
-st.title('Calculadora de Ecuaciones de Segundo Grado')
+st.title('Cálculo de Valores y Direcciones Principales')
 
-# Entradas para los coeficientes
-a = st.number_input('Coeficiente a:', value=1.0)
-b = st.number_input('Coeficiente b:', value=0.0)
-c = st.number_input('Coeficiente c:', value=0.0)
+# Selección del tipo de tensor
+tensor_type = st.radio('Tipo de Tensor', ('Tensiones', 'Deformaciones'))
+
+# Entrada de la matriz del tensor
+st.write(f'Introduce la matriz del tensor de {tensor_type.lower()}:')
+
+# Crear campos de entrada para cada elemento de la matriz 3x3
+matrix_input = []
+for i in range(3):
+    row = []
+    for j in range(3):
+        value = st.number_input(f'Elemento ({i+1}, {j+1})', key=f'{i}{j}')
+        row.append(value)
+    matrix_input.append(row)
+
+# Convertir la entrada en una matriz NumPy
+matrix = np.array(matrix_input)
 
 # Botón para calcular
 if st.button('Calcular'):
-    # Calcular el discriminante
-    discriminante = b**2 - 4*a*c
+    if matrix.shape == (3, 3):
+        # Calcular valores y vectores propios
+        eigenvalues, eigenvectors = la.eig(matrix)
 
-    # Calcular las soluciones
-    if discriminante >= 0:
-        x1 = (-b + cmath.sqrt(discriminante)) / (2*a)
-        x2 = (-b - cmath.sqrt(discriminante)) / (2*a)
+        # Mostrar resultados
+        st.subheader('Valores Principales:')
+        st.write(eigenvalues)
+
+        st.subheader('Direcciones Principales (Vectores Propios):')
+        st.write(eigenvectors)
     else:
-        x1 = (-b + cmath.sqrt(discriminante)) / (2*a)
-        x2 = (-b - cmath.sqrt(discriminante)) / (2*a)
-
-    # Mostrar las soluciones
-    st.write(f'Solucion: x1 = {x1}')
-    st.write(f'Solucion: x2 = {x2}')
-
-    # Mostrar la ecuación introducida
-    st.write(f'Ecuación: {a}x² + {b}x + {c} = 0')
+        st.write('La matriz debe ser 3x3')
