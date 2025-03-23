@@ -1,8 +1,7 @@
-
 import streamlit as st
-import math
+import cmath
 
-st.title('Calculadora de Ecuaciones de Segundo Grado')
+st.title('Calculadora de Ecuaciones de Segundo Grado (Soluciones Complejas)')
 
 # Entradas para los coeficientes
 a = st.number_input('Coeficiente a:', value=1.0)
@@ -15,15 +14,15 @@ if st.button('Calcular'):
     discriminante = b**2 - 4*a*c
 
     # Calcular las soluciones
-    if discriminante > 0:
-        x1 = (-b + math.sqrt(discriminante)) / (2*a)
-        x2 = (-b - math.sqrt(discriminante)) / (2*a)
-        st.write(f'Soluciones: x1 = {x1}, x2 = {x2}')
-    elif discriminante == 0:
-        x = -b / (2*a)
-        st.write(f'Solución única: x = {x}')
+    if discriminante >= 0:
+        x1 = (-b + cmath.sqrt(discriminante)) / (2*a)
+        x2 = (-b - cmath.sqrt(discriminante)) / (2*a)
     else:
-        st.write('La ecuación no tiene soluciones reales.')
+        x1 = (-b + cmath.sqrt(discriminante)) / (2*a)
+        x2 = (-b - cmath.sqrt(discriminante)) / (2*a)
+
+    # Mostrar las soluciones
+    st.write(f'Soluciones: x1 = {x1}, x2 = {x2}')
 
     # Mostrar la ecuación introducida
     st.write(f'Ecuación: {a}x² + {b}x + {c} = 0')
