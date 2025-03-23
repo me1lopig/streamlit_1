@@ -8,25 +8,22 @@ st.title('Cálculo de Valores y Direcciones Principales')
 tensor_type = st.radio('Tipo de Tensor', ('Tensiones', 'Deformaciones'))
 
 # Entrada de la matriz del tensor
-st.write(f'Introduce la matriz del tensor de {tensor_type.lower()}:')
+st.write(f'Introduce los valores de la parte triangular superior de la matriz del tensor de {tensor_type.lower()}:')
 
-# Crear campos de entrada para cada elemento de la matriz 3x3
-matrix_input = []
+# Crear campos de entrada para la parte triangular superior de la matriz 3x3
+matrix_input = np.zeros((3, 3))
 for i in range(3):
-    row = []
-    for j in range(3):
+    for j in range(i, 3):
         value = st.number_input(f'Elemento ({i+1}, {j+1})', key=f'{i}{j}')
-        row.append(value)
-    matrix_input.append(row)
-
-# Convertir la entrada en una matriz NumPy
-matrix = np.array(matrix_input)
+        matrix_input[i, j] = value
+        if i != j:
+            matrix_input[j, i] = value  # Rellenar la parte simétrica
 
 # Botón para calcular
 if st.button('Calcular'):
-    if matrix.shape == (3, 3):
+    if matrix_input.shape == (3, 3):
         # Calcular valores y vectores propios
-        eigenvalues, eigenvectors = la.eig(matrix)
+        eigenvalues, eigenvectors = la.eig(matrix_input)
 
         # Mostrar resultados
         st.subheader('Valores Principales:')
@@ -36,3 +33,4 @@ if st.button('Calcular'):
         st.write(eigenvectors)
     else:
         st.write('La matriz debe ser 3x3')
+
