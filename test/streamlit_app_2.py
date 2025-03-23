@@ -15,9 +15,9 @@ def calcular_tensiones_principales(tensor):
     return tensiones_principales_ordenadas, direcciones_principales_ordenadas
 
 def main():
-    st.title("Calculadora de Tensiones Principales para Tensores Simétricos")
+    st.title("Cálculo de valores y direcciones principales")
 
-    st.write("Introduce los valores del tensor de tensiones (considerando la simetría):")
+    st.write("Introduce los valores del tensor ")
 
     # Inicializar el tensor con valores por defecto
     tensor = np.zeros((3, 3))
