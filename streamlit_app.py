@@ -22,7 +22,8 @@ if st.button('Calcular'):
         x2 = (-b - cmath.sqrt(discriminante)) / (2*a)
 
     # Mostrar las soluciones
-    st.write(f'Soluciones: x1 = {x1}\n x2 = {x2}')
+    st.write(f'Solucion: x1 = {x1}')
+    st.write(f'Solucion: x2 = {x2}')
 
     # Mostrar la ecuación introducida
     st.write(f'Ecuación: {a}x² + {b}x + {c} = 0')
