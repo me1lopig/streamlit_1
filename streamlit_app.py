@@ -19,6 +19,10 @@ for i in range(3):
         if i != j:
             matrix_input[j, i] = value  # Rellenar la parte simétrica
 
+# Mostrar la matriz completa en pantalla
+st.subheader('Matriz del Tensor:')
+st.write(matrix_input)
+
 # Botón para calcular
 if st.button('Calcular'):
     if matrix_input.shape == (3, 3):
@@ -33,4 +37,5 @@ if st.button('Calcular'):
         st.write(eigenvectors)
     else:
         st.write('La matriz debe ser 3x3')
+
 
