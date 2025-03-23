@@ -1,7 +1,7 @@
 import streamlit as st
 import cmath
 
-st.title('Calculadora de Ecuaciones de Segundo Grado (Soluciones Complejas)')
+st.title('Calculadora de Ecuaciones de Segundo Grado')
 
 # Entradas para los coeficientes
 a = st.number_input('Coeficiente a:', value=1.0)
@@ -22,7 +22,7 @@ if st.button('Calcular'):
         x2 = (-b - cmath.sqrt(discriminante)) / (2*a)
 
     # Mostrar las soluciones
-    st.write(f'Soluciones: x1 = {x1}, x2 = {x2}')
+    st.write(f'Soluciones: x1 = {x1}, x2 = {x2}\n')
 
     # Mostrar la ecuación introducida
     st.write(f'Ecuación: {a}x² + {b}x + {c} = 0')
