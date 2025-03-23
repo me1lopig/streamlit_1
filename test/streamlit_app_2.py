@@ -41,8 +41,7 @@ def main():
 
         st.subheader("Direcciones Principales Correspondientes:")
         # Crear un DataFrame para mostrar las direcciones principales
-        df_direcciones = pd.DataFrame(direcciones_principales,
-                                      columns=[f"Dirección Principal {i+1}" for i in range(3)])
+        df_direcciones = pd.DataFrame(direcciones_principales,columns=[f"Dirección Principal {i+1}" for i in range(3)])
         st.write(df_direcciones)
 
         # Etiquetar las tensiones principales con sus direcciones correspondientes
