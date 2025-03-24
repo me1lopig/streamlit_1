@@ -1,8 +1,9 @@
 import streamlit as st
 import numpy as np
 import numpy.linalg as la
+import matplotlib.pyplot as plt
 
-st.title('Cálculo de Valores y Direcciones Principales')
+st.title('Cálculo de Valores y Direcciones Principales con Círculos de Mohr')
 
 # Selección del tipo de tensor
 tensor_type = st.radio('Tipo de Tensor', ('Tensiones', 'Deformaciones'))
@@ -35,5 +36,41 @@ if st.button('Calcular'):
 
         st.subheader('Direcciones Principales (Vectores Propios):')
         st.write(eigenvectors)
+
+        # Calcular parámetros para los Círculos de Mohr
+        sigma_1, sigma_2, sigma_3 = eigenvalues
+        R1 = (sigma_1 - sigma_2) / 2
+        C1 = (sigma_1 + sigma_2) / 2
+        R2 = (sigma_1 - sigma_3) / 2
+        C2 = (sigma_1 + sigma_3) / 2
+        R3 = (sigma_2 - sigma_3) / 2
+        C3 = (sigma_2 + sigma_3) / 2
+
+        # Dibujar los Círculos de Mohr
+        fig, ax = plt.subplots()
+
+        # Círculo para sigma_1 y sigma_2
+        circle1 = plt.Circle((C1, 0), R1, color='b', fill=False, linewidth=2, label=f'σ1-σ2')
+        ax.add_artist(circle1)
+
+        # Círculo para sigma_1 y sigma_3
+        circle2 = plt.Circle((C2, 0), R2, color='g', fill=False, linewidth=2, label=f'σ1-σ3')
+        ax.add_artist(circle2)
+
+        # Círculo para sigma_2 y sigma_3
+        circle3 = plt.Circle((C3, 0), R3, color='r', fill=False, linewidth=2, label=f'σ2-σ3')
+        ax.add_artist(circle3)
+
+        # Configuración del gráfico
+        ax.set_xlabel('Tensión Normal (σ)')
+        ax.set_ylabel('Tensión Cortante (τ)')
+        ax.set_title('Círculos de Mohr')
+        ax.legend()
+        ax.grid(True)
+        ax.set_aspect('equal', 'box')
+
+        # Mostrar el gráfico en Streamlit
+        st.pyplot(fig)
     else:
         st.write('La matriz debe ser 3x3')
+
