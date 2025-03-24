@@ -1,11 +1,12 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-from scipy import linalg
+
+
 
 def calcular_tensiones_principales(tensor):
     """Calcula las tensiones principales y los vectores principales de un tensor de tensiones simétrico."""
-    eigenvalores, eigenvectores = linalg.eig(tensor)
+    eigenvalores, eigenvectores = np.linalg.eig(tensor)
 
     # Ordenar las tensiones principales (eigenvalores) de mayor a menor
     indices_ordenados = np.argsort(eigenvalores)[::-1]
