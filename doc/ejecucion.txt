@@ -1,2 +1,2 @@
 # ejecucion de un archivo
-python -m streamlit run tu_aplicacion.py
+python -m streamlit run app.py
